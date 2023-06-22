@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
           } else if (event.target === plusButton) {
             console.log("Plus button clicked");
             numberStrings.push(currentNumberString); // Add the current number string to the array
-            currentNumberString = ""; // Reset the current number string
+            const result = calculateResult(numberStrings); // Calculate the result
+            currentNumberString = "+"; // Reset the current number string
             outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
           } else if (event.target === equalButton) {
             console.log("Equal button clicked");
