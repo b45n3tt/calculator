@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const outputElement = document.querySelector("#output"); // Assuming you have an element with the id "output" for displaying the result
     const numberStrings = []; // Array to store individual number strings
     let currentNumberString = ""; // String to store the current number being entered
-  
+    let isMouseDown = false;
+
     // Create grid for buttons
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < 4; j++) {
@@ -12,6 +13,23 @@ document.addEventListener("DOMContentLoaded", function() {
         gridItem.classList.add("grid-item");
         container.appendChild(gridItem);
   
+         // Mouse hover event listener
+        gridItem.addEventListener("mouseover", function(event) {
+          gridItem.classList.add("pulsating"); // Apply the pulsating animation on mouse hover
+          if (isMouseDown) {
+            if (event.target === oneButton) {
+              // Handle mouse hover on oneButton
+              // Add your code to animate the number popout or perform any desired action
+              console.log("One button hovered");
+            // This could trigger the keypad or perform any desired action
+            }
+          }
+        });
+  
+        gridItem.addEventListener("mouseleave", function() {
+          gridItem.classList.remove("pulsating");
+        });
+
         gridItem.addEventListener("mousedown", function(event) {
           isMouseDown = true;
           if (event.target === oneButton) {
@@ -40,27 +58,99 @@ document.addEventListener("DOMContentLoaded", function() {
   
         // Set the first grid item as the one button
         if (i === 2 && j === 0) {
-          gridItem.textContent = "1";
-          gridItem.classList.add("one-button");
-          oneButton = gridItem;
+        gridItem.textContent = "1" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        oneButton = gridItem;
         }
-  
+
         if (i === 2 && j === 1) {
-          gridItem.textContent = "2";
-          gridItem.classList.add("one-button");
-          twoButton = gridItem;
+        gridItem.textContent = "2" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        twoButton = gridItem;
         }
-  
-        if (i === 2 && j === 3) {
+
+        if (i === 2 && j === 2) {
+        gridItem.textContent = "3" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        threeButton = gridItem;
+        }
+
+        if (i === 1 && j === 0) {
+        gridItem.textContent = "4" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        fourButton = gridItem;
+        }
+
+        if (i === 1 && j === 1) {
+        gridItem.textContent = "5" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        fiveButton = gridItem;
+        }
+
+        if (i === 1 && j === 2) {
+        gridItem.textContent = "6" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        sixButton = gridItem;
+        }
+
+        if (i === 0 && j === 0) {
+        gridItem.textContent = "7" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        sevenButton = gridItem;
+        }
+
+        if (i === 0 && j === 1) {
+        gridItem.textContent = "8" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        eightButton = gridItem;
+        }
+
+        if (i === 0 && j === 2) {
+        gridItem.textContent = "9" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        nineButton = gridItem;
+        }
+
+        if (i === 3 && j === 0) {
+        gridItem.textContent = "0" //String.fromCodePoint(0x0001);  Unicode character for 1
+        gridItem.classList.add("one-button");
+        zeroButton = gridItem;
+        }
+
+        if (i === 3 && j === 3) {
           gridItem.textContent = "+";
           gridItem.classList.add("op-button");
           plusButton = gridItem;
         }
   
-        if (i === 3 && j === 3) {
+        if (i === 3 && j === 2) {
           gridItem.textContent = "=";
           gridItem.classList.add("op-button");
           equalButton = gridItem;
+        }
+
+        if (i === 2 && j === 3) {
+          gridItem.textContent = "-";
+          gridItem.classList.add("op-button");
+          minusButton = gridItem;
+        }
+  
+        if (i === 1 && j === 3) {
+          gridItem.textContent = "*";
+          gridItem.classList.add("op-button");
+          multiplyButton = gridItem;
+        }
+
+        if (i === 0 && j === 3) {
+          gridItem.textContent = "/";
+          gridItem.classList.add("op-button");
+          divideButton = gridItem;
+        }
+  
+        if (i === 3 && j === 1) {
+          gridItem.textContent = ".";
+          gridItem.classList.add("op-button");
+          decimalButton = gridItem;
         }
       }
     }
