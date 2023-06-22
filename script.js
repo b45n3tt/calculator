@@ -33,19 +33,47 @@ document.addEventListener("DOMContentLoaded", function() {
         gridItem.addEventListener("mousedown", function(event) {
           isMouseDown = true;
           if (event.target === oneButton) {
-            console.log("One button clicked");
             currentNumberString += "1";
             outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
           } else if (event.target === twoButton) {
-            console.log("Two button clicked");
             currentNumberString += "2";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === threeButton) {
+            currentNumberString += "3";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === fourButton) {
+            currentNumberString += "4";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === fiveButton) {
+            currentNumberString += "5";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === sixButton) {
+            currentNumberString += "6";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === sevenButton) {
+            currentNumberString += "7";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === eightButton) {
+            currentNumberString += "8";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === nineButton) {
+            currentNumberString += "9";
+            outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+          } else if (event.target === zeroButton) {
+            currentNumberString += "0";
             outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
           } else if (event.target === plusButton) {
             console.log("Plus button clicked");
             numberStrings.push(currentNumberString); // Add the current number string to the array
-            const result = calculateResult(numberStrings); // Calculate the result
-            currentNumberString = "+"; // Reset the current number string
+            currentNumberString = ""; // Reset the current number string
             outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
+            
+            if (numberStrings.length >= 2) {
+              const result = calculateResult(numberStrings); // Calculate the result
+              numberStrings.length = 1; // Keep the result in the number strings array for further operations
+              numberStrings[0] = result.toString(); // Store the result as the first element in the array
+              outputElement.textContent = result; // Set the output to the result in the DOM
+            }
           } else if (event.target === equalButton) {
             console.log("Equal button clicked");
             numberStrings.push(currentNumberString); // Add the current number string to the array
@@ -56,101 +84,103 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         });
   
-        // Set the first grid item as the one button
-        if (i === 2 && j === 0) {
-        gridItem.textContent = "1" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        oneButton = gridItem;
-        }
-
-        if (i === 2 && j === 1) {
-        gridItem.textContent = "2" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        twoButton = gridItem;
-        }
-
-        if (i === 2 && j === 2) {
-        gridItem.textContent = "3" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        threeButton = gridItem;
-        }
-
-        if (i === 1 && j === 0) {
-        gridItem.textContent = "4" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        fourButton = gridItem;
-        }
-
-        if (i === 1 && j === 1) {
-        gridItem.textContent = "5" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        fiveButton = gridItem;
-        }
-
-        if (i === 1 && j === 2) {
-        gridItem.textContent = "6" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        sixButton = gridItem;
-        }
-
-        if (i === 0 && j === 0) {
-        gridItem.textContent = "7" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        sevenButton = gridItem;
-        }
-
-        if (i === 0 && j === 1) {
-        gridItem.textContent = "8" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        eightButton = gridItem;
-        }
-
-        if (i === 0 && j === 2) {
-        gridItem.textContent = "9" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        nineButton = gridItem;
-        }
-
-        if (i === 3 && j === 0) {
-        gridItem.textContent = "0" //String.fromCodePoint(0x0001);  Unicode character for 1
-        gridItem.classList.add("one-button");
-        zeroButton = gridItem;
-        }
-
-        if (i === 3 && j === 3) {
-          gridItem.textContent = "+";
-          gridItem.classList.add("op-button");
-          plusButton = gridItem;
-        }
-  
-        if (i === 3 && j === 2) {
-          gridItem.textContent = "=";
-          gridItem.classList.add("op-button");
-          equalButton = gridItem;
-        }
-
-        if (i === 2 && j === 3) {
-          gridItem.textContent = "-";
-          gridItem.classList.add("op-button");
-          minusButton = gridItem;
-        }
-  
-        if (i === 1 && j === 3) {
-          gridItem.textContent = "*";
-          gridItem.classList.add("op-button");
-          multiplyButton = gridItem;
-        }
-
-        if (i === 0 && j === 3) {
-          gridItem.textContent = "/";
-          gridItem.classList.add("op-button");
-          divideButton = gridItem;
-        }
-  
-        if (i === 3 && j === 1) {
-          gridItem.textContent = ".";
-          gridItem.classList.add("op-button");
-          decimalButton = gridItem;
+        //  buttons
+        {
+          if (i === 2 && j === 0) {
+            gridItem.textContent = "1" 
+            gridItem.classList.add("one-button");
+            oneButton = gridItem;
+            }
+    
+            if (i === 2 && j === 1) {
+            gridItem.textContent = "2" 
+            gridItem.classList.add("one-button");
+            twoButton = gridItem;
+            }
+    
+            if (i === 2 && j === 2) {
+            gridItem.textContent = "3" 
+            gridItem.classList.add("one-button");
+            threeButton = gridItem;
+            }
+    
+            if (i === 1 && j === 0) {
+            gridItem.textContent = "4" 
+            gridItem.classList.add("one-button");
+            fourButton = gridItem;
+            }
+    
+            if (i === 1 && j === 1) {
+            gridItem.textContent = "5" 
+            gridItem.classList.add("one-button");
+            fiveButton = gridItem;
+            }
+    
+            if (i === 1 && j === 2) {
+            gridItem.textContent = "6" 
+            gridItem.classList.add("one-button");
+            sixButton = gridItem;
+            }
+    
+            if (i === 0 && j === 0) {
+            gridItem.textContent = "7" 
+            gridItem.classList.add("one-button");
+            sevenButton = gridItem;
+            }
+    
+            if (i === 0 && j === 1) {
+            gridItem.textContent = "8" 
+            gridItem.classList.add("one-button");
+            eightButton = gridItem;
+            }
+    
+            if (i === 0 && j === 2) {
+            gridItem.textContent = "9" 
+            gridItem.classList.add("one-button");
+            nineButton = gridItem;
+            }
+    
+            if (i === 3 && j === 0) {
+            gridItem.textContent = "0" 
+            gridItem.classList.add("one-button");
+            zeroButton = gridItem;
+            }
+    
+            if (i === 3 && j === 3) {
+              gridItem.textContent = "+";
+              gridItem.classList.add("op-button");
+              plusButton = gridItem;
+            }
+      
+            if (i === 3 && j === 2) {
+              gridItem.textContent = "=";
+              gridItem.classList.add("op-button");
+              equalButton = gridItem;
+            }
+    
+            if (i === 2 && j === 3) {
+              gridItem.textContent = "-";
+              gridItem.classList.add("op-button");
+              minusButton = gridItem;
+            }
+      
+            if (i === 1 && j === 3) {
+              gridItem.textContent = "*";
+              gridItem.classList.add("op-button");
+              multiplyButton = gridItem;
+            }
+    
+            if (i === 0 && j === 3) {
+              gridItem.textContent = "/";
+              gridItem.classList.add("op-button");
+              divideButton = gridItem;
+            }
+      
+            if (i === 3 && j === 1) {
+              gridItem.textContent = ".";
+              gridItem.classList.add("op-button");
+              decimalButton = gridItem;
+            }
         }
       }
     }
@@ -191,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
       })
     );
   
-    // Keyboard event listener for "1" key press
+    // Keyboard event listener for key press
     document.addEventListener("keydown", function(event) {
       if (event.key === "1") {
         if (oneButton) {
