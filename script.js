@@ -10,21 +10,22 @@ document.addEventListener("DOMContentLoaded", function() {
   let eightButton = null;
   let nineButton = null;
   let zeroButton = null;
-  let plusButton = null;
-  let subtractButton = null;
-  let multiplyButton = null;
-  let divideButton = null;
-  let equalButton = null;
+  // let plusButton = null;
+  // let minusButton = null;
+  // let multiplyButton = null;
+  // let divideButton = null;
+  let equalButton = '=';
   const clearButton = document.getElementById('clear-button');
   const outputElement = document.querySelector("#output"); // Assuming you have an element with the id "output" for displaying the result
   const numberStrings = []; // Array to store individual number strings
   let currentNumberString = ""; // String to store the current number being entered
   let isMouseDown = false;
+  let operatorInput = "";
 
   clearButton.addEventListener('click', clearCalculator);
   
   // Create grid for buttons
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       const gridItem = document.createElement("div");
       gridItem.classList.add("grid-item");
@@ -81,7 +82,12 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (event.target === zeroButton) {
           currentNumberString += "0";
           outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
-        } else if (event.target === plusButton) {
+        } else if (event.target === decimalButton) {
+          currentNumberString += ".";
+          outputElement.textContent = currentNumberString; // Set the output to the current number string in the DOM
+        }else if (event.target === plusButton) {
+          console.log("plus button clicked");
+          operatorInput = "+";
           numberStrings.push(currentNumberString); // Add the current number string to the array
           currentNumberString = ""; // Reset the current number string
           outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
@@ -93,6 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
             outputElement.textContent = result; // Set the output to the result in the DOM
           }
         } else if (event.target === minusButton) {
+          console.log("minus button clicked");
+          operatorInput = "-";
           numberStrings.push(currentNumberString); // Add the current number string to the array
           currentNumberString = ""; // Reset the current number string
           outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
@@ -105,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         } else if (event.target === multiplyButton) {
           console.log("multiply button clicked");
+          operatorInput = "*";
           numberStrings.push(currentNumberString); // Add the current number string to the array
           currentNumberString = ""; // Reset the current number string
           outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
@@ -117,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         } else if (event.target === divideButton) {
           console.log("divide button clicked");
+          operatorInput = "/";
           numberStrings.push(currentNumberString); // Add the current number string to the array
           currentNumberString = ""; // Reset the current number string
           outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
@@ -134,31 +144,21 @@ document.addEventListener("DOMContentLoaded", function() {
           numberStrings.length = 0; // Clear the number strings array
           currentNumberString = result.toString(); // Store the result as the current number string
           outputElement.textContent = currentNumberString; // Set the output to the result in the DOM
-        } else if (event.target === clearButton) {
-            clearCalculator();
-        }
+        } 
 
-// Function to clear the calculator
-const clearCalculator = () => {
-  numberStrings.length = 0;
-  currentNumberString = "";
-  outputElement.textContent = "0";
-};
-
-
-       // Function to perform the arithmetic operation
-    const performOperation = (operator) => {
-      numberStrings.push(currentNumberString); // Add the current number string to the array
-      currentNumberString = ""; // Reset the current number string
-      outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
+    //    // Function to perform the arithmetic operation
+    // const performOperation = (operator) => {
+    //   numberStrings.push(currentNumberString); // Add the current number string to the array
+    //   currentNumberString = ""; // Reset the current number string
+    //   outputElement.textContent = numberStrings.join(" "); // Set the output to the concatenated number strings in the DOM
       
-      if (numberStrings.length >= 2) {
-        const result = calculateResult(numberStrings); // Calculate the result
-        numberStrings.length = 1; // Keep the result in the number strings array for further operations
-        numberStrings[0] = result.toString(); // Store the result as the first element in the array
-        outputElement.textContent = result; // Set the output to the result in the DOM
-      }
-    };
+    //   if (numberStrings.length >= 2) {
+    //     const result = calculateResult(numberStrings); // Calculate the result
+    //     numberStrings.length = 1; // Keep the result in the number strings array for further operations
+    //     numberStrings[0] = result.toString(); // Store the result as the first element in the array
+    //     outputElement.textContent = result; // Set the output to the result in the DOM
+    //   }
+    // };
     
       });
 
@@ -260,7 +260,6 @@ const clearCalculator = () => {
             decimalButton = gridItem;
           }
       }
-
     }
   }
 
@@ -271,7 +270,7 @@ const clearCalculator = () => {
     outputElement.innerText = ''; // Assuming 'output' is the element that displays the calculation result
   }
 
-  const operate = (operator, num1, num2) => {
+  const calculator = (operator, num1, num2) => {
     switch (operator) {
       case "+":
         return num1 + num2;
@@ -290,7 +289,7 @@ const clearCalculator = () => {
   // Calculate the result based on the number strings and the operator
   const calculateResult = (numberStrings) => {
     let result = parseFloat(numberStrings[0]);
-    let operator = "+"; // Default operator is "+"
+    let operator = operatorInput;
   
     for (let i = 1; i < numberStrings.length; i++) {
       const currentString = numberStrings[i];
@@ -299,7 +298,7 @@ const clearCalculator = () => {
         operator = currentString;
       } else {
         const operand = parseFloat(currentString);
-        result = operate(operator, result, operand);
+        result = calculator(operator, result, operand);
       }
     }
   
@@ -311,7 +310,7 @@ const clearCalculator = () => {
   localStorage.setItem(
     "calculatorFunctions",
     JSON.stringify({
-      operate: operate.toString(),
+      calculator: calculator.toString(),
       calculateResult: calculateResult.toString()
     })
   );
